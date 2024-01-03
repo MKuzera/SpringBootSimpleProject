@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grupy Nauczycielskie</title>
+</head>
+<body>
+
+<h1>Grupy Nauczycielskie</h1>
+
+<!-- Formularz do dodawania nowej grupy -->
+<form action="/api/teacher" method="POST">
+
+  <label for="nazwaKlasy">Nazwa grupy:</label>
+  <input type="text" id="nazwaKlasy" name="nazwaKlasy" required>
+  <label for="imie">Imie</label>
+  <input type="text" id="imie" name="imie" required>
+  <label for="nazwisko">Nazwisko</label>
+  <input type="text" id="nazwisko" name="nazwisko" required>
+  <label for="salary">Salary</label>
+  <input type="text" id="salary" name="salary" required>
+  <label for="condition">Condition</label>
+  <input type="text" id="condition" name="condition" required>
+
+  <button type="submit">Dodaj nauczyciela</button>
+
+
+</form>
+
+<hr>
+
+
+</body>
+</html>

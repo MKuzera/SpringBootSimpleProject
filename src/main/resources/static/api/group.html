@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grupy Nauczycielskie</title>
+</head>
+<body>
+
+<h1>Grupy Nauczycielskie</h1>
+
+<!-- Formularz do dodawania nowej grupy -->
+<form action="/api/group" method="POST">
+
+  <label for="groupName">Nazwa grupy:</label>
+  <input type="text" id="groupName" name="groupName" required>
+  <label for="maxTeachers">Max Teachers:</label>
+  <input type="text" id="maxTeachers" name="maxTeachers" required>
+
+  <button type="submit">Dodaj grupę</button>
+
+
+</form>
+
+<hr>
+
+<!-- Wyświetlanie wszystkich grup (GET) -->
+<h2>Wszystkie grupy nauczycielskie</h2>
+
+<div id="groupList"></div>
+
+<script>
+  // Obsługa żądania GET przy użyciu Fetch API
+  fetch('/api/group')
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`Błąd sieci: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then(groups => {
+            const groupListElement = document.getElementById('groupList');
+            groupListElement.innerHTML = '<ul>';
+            Object.values(groups).forEach(group => {
+              groupListElement.innerHTML += `<li>${group.groupName} - Max Nauczycieli: ${group.maxTeachers}</li>`;
+              group.teacherList.forEach(teacher => {
+                groupListElement.innerHTML += `<ul>`;
+                groupListElement.innerHTML += `<li>ID: ${teacher.id}</li>`;
+                groupListElement.innerHTML += `<li>Imię: ${teacher.firstName}</li>`;
+                groupListElement.innerHTML += `<li>Nazwisko: ${teacher.lastName}</li>`;
+                groupListElement.innerHTML += `<li>Rok urodzenia: ${teacher.yearOfBirth}</li>`;
+                groupListElement.innerHTML += `<li>Stan nauczyciela: ${teacher.teacherCondition}</li>`;
+                groupListElement.innerHTML += `<li>Wynagrodzenie: ${teacher.salary}</li>`;
+                groupListElement.innerHTML += `</ul>`;
+                groupListElement.innerHTML += `<h1></h1>`;
+              });
+              groupListElement.innerHTML += `</li>`;
+            });
+            groupListElement.innerHTML += '</ul>';
+          })
+          .catch(error => console.error('Błąd podczas pobierania grup:', error));
+</script>
+
+</body>
+</html>
